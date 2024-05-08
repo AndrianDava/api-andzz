@@ -92,6 +92,23 @@ router.get('/downloader/spotifydl', async (req, res, next) => {
         }
         })
 
+        router.get('/downloader/ttdl', async (req, res, next) => {
+            var url = req.query.url
+            var apikey = req.query.apikey
+            if (!url) return res.json(loghandler.noturl)
+            if (!apikey) return res.json(loghandler.notapikey)
+            if(listkey.includes(apikey)){
+            let anu = await fetchJson(`https://tiktokdl-x6vm.onrender.com/tiktok/api.php?url=${url}`)
+            res.json({
+            status: true,
+            creator: `${creator}`,
+            result: anu
+            })
+            } else {
+            res.json(loghandler.notapikey)
+            }
+            })
+
 
 // - STALKER MENU - \\
 router.get('/stalker/instagram', async (req, res, next) => {
